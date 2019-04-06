@@ -1,0 +1,42 @@
+body  {   
+        background-color:MediumSeaGreen;
+}
+
+.ClsStk {
+    width: 125px;
+    text-align: right;
+    background-color:bisque;
+    font-weight: bold
+}
+
+.ClsPrv {
+    width: 125px;
+    text-align: right;
+    background-color:greenyellow;
+    font-weight: bold
+}
+
+.ClsCon {
+    width: 125px;
+    text-align: right;
+    background-color:gold;
+    font-weight: bold
+}
+
+.ClsBal {
+    width: 125px;
+    text-align: right;
+    background-color:lightsteelblue;
+    font-weight: bold
+}
+
+.ClsDate {
+    width: 125px;
+    background-color:bisque;
+    text-align: center
+}
+
+.ClsButton {
+    width: 130px;
+    height: 30px
+}
