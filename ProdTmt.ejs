@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/ProdEntry.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> -->
+    <script src="/js/angular_169.min.js"></script>
+    <title>Production Entry</title>
+</head>
+<body>
+    <form id="WfProdTmt" action="/steel/production/tmt" method="POST">
+        <h2>Steel Plant (Bilaspur) Production Entry</h2>
+        <h3>JOB : <%= MyJob.JobDesc  %> </h3>
+        <div ng-app="TmtProdApp" ng-controller="TmtProdCtrl">
+            <table id="TblEntry">
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">JOB CODE</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="text" id="JobProdID" class="ClsDate" name="JobCode" class="ClsDate" value=<%= MyJob.JobCode %> readonly>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">DATE</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="text" id="DtProdID" class="ClsDate" name="JobDate" class="ClsDate" value=<%= MyJob.JobDate %> readonly>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center;font-weight: bold">STOCK</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center;font-weight: bold">PREVIOUS</td>
+                    <td></td>
+                    <td style="text-align: center;font-weight: bold">CURRENT</td>
+                    <td></td><td></td>
+                    <td style="text-align: center;font-weight: bold">BALANCE</td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">BILLET (MT)</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk" id="IdStkBl"
+                        ng-model="StkBl=<%= MyJob.Product[0].BILETOP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">-</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="PrvBl=<%= MyJob.Product[0].BILETCUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdConBl" name="Billet"
+                        ng-model="ConBl" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{BalBl()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">TMT BAR (MT)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">08 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk08=<%= MyJob.Product[0].TMT08OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv08=<%= MyJob.Product[0].TMT08CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon08" name="Tmt08"
+                        ng-model="Con08" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal08()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">10 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk10=<%= MyJob.Product[0].TMT10OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv10=<%= MyJob.Product[0].TMT10CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon10" name="Tmt10"
+                        ng-model="Con10" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal10()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">12 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk12=<%= MyJob.Product[0].TMT12OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv12=<%= MyJob.Product[0].TMT12CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon12" name="Tmt12"
+                        ng-model="Con12" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal12()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">16 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk16=<%= MyJob.Product[0].TMT16OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv16=<%= MyJob.Product[0].TMT16CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon16" name="Tmt16"
+                        ng-model="Con16" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal16()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">20 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk20=<%= MyJob.Product[0].TMT20OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv20=<%= MyJob.Product[0].TMT20CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon20" name="Tmt20"
+                        ng-model="Con20" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal20()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">25 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk25=<%= MyJob.Product[0].TMT25OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv25=<%= MyJob.Product[0].TMT25CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon25" name="Tmt25"
+                        ng-model="Con25" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal25()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">28 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk28=<%= MyJob.Product[0].TMT28OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv28=<%= MyJob.Product[0].TMT28CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon28" name="Tmt28"
+                        ng-model="Con28" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal28()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">32 MM</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="Stk32=<%= MyJob.Product[0].TMT32OP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="Prv32=<%= MyJob.Product[0].TMT32CUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdCon32" name="Tmt32"
+                        ng-model="Con32" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{Bal32()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">TOTAL TMT</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk" value="{{StkTT()}}" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" value="{{PrvTT()}}" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" value="{{ConTT()}}" disabled>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{BalTT()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">SCRAP (MT)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">MISS-ROLL</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="StkMr=<%= MyJob.Product[0].MROP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="PrvMr=<%= MyJob.Product[0].MRCUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdConMr" name="MissRoll"
+                        ng-model="ConMr" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{BalMr()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">MILL-SCALE</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="StkMs=<%= MyJob.Product[0].MSOP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="PrvMs=<%= MyJob.Product[0].MSCUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdConMs" name="MillScale"
+                        ng-model="ConMs" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{BalMs()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">SCRAP</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk"
+                        ng-model="StkSc=<%= MyJob.Product[0].SCOP %>" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" ng-model="PrvSc=<%= MyJob.Product[0].SCCUR %>" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" id="IdConSc" name="Scrap"
+                        ng-model="ConSc" min="0.0000" max="999.9999" step="0.0001" required>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{BalSc()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: right;font-weight: bold">TOTAL SCRAP</td>
+                    <td style="text-align: center;font-weight: bold">:</td>
+                    <td>
+                        <input type="number" class="ClsStk" value="{{StkTS()}}" disabled>
+                    </td>
+                    <td style="text-align: center;font-weight: bold">+</td>
+                    <td>(</td>
+                    <td>
+                        <input type="number" class="ClsPrv" value="{{PrvTS()}}" disabled>
+                    </td>
+                    <td>/</td>
+                    <td>
+                        <input type="number" class="ClsCon" value="{{ConTS()}}" disabled>
+                    </td>
+                    <td>)</td>
+                    <td style="text-align: center;font-weight: bold">=</td>
+                    <td>
+                        <input type="number" class="ClsBal" value="{{BalTS()}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td><td></td>
+                    <td>
+                        <button type="submit" id="IdBtnProd" name="BtnProd" class="ClsButton">Confirm</button>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </form>
+    <script src="/js/Prod.js"></script>
+    <script src="/js/ProdNg.js"></script>
+</body>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/ProdEntry.css">
+    <title>Production Home</title>
+</head>
+<body onload="DateCurrent()">
+    <h1>Steel Plant (Bilaspur)</h1>
+    <form action="/steel/production" method="POST">
+        <div class="ClsProdHome">
+            <table id="TblHome">
+
+                    <tr>
+                        <td style="text-align: right;font-weight: bold">DATE</td>
+                        <td style="text-align: center;font-weight: bold">:</td>
+                        <td>
+                            <input type="date" id="DtProdID" name="DtEntry" class="ClsDate" required>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td style="text-align: right;font-weight: bold">JOB</td>
+                        <td style="text-align: center;font-weight: bold">:</td>
+                        <td>
+                            <select name="job">
+                                <option value="01">SKSL PRODUCTION (TMT)</option>
+                                <option value="02">MITTAL CONVERSION (TMT)</option>
+                                <option value="03">FURNACE OIL & POWER</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td><td></td>
+                        <td>
+                            <button type="submit" id="BtnProdId" name="BtnProd" class="ClsButton">Production</button>
+                        </td>                        
+                        <td></td><td></td><td></td><td></td>
+                    </tr>
+
+            </table>
+        </div>
+    </form>
+    <script src="/js/Prod.js"></script>
+</body>
